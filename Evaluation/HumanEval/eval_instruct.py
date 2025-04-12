@@ -47,6 +47,10 @@ def generate_one(example, lang, tokenizer, model):
 
 def generate_main(args):
     model_name_or_path = args.model
+    if(args.tokenizer_path):
+      tokenizer_path = args.tokenizer_path
+    else:
+      tokenizer_path = model_name_or_path
     lang = args.language
     saved_path = args.output_path
     temp_dir = args.temp_dir
@@ -54,7 +58,7 @@ def generate_main(args):
     problem_file = os.path.join(data_abs_dir, f"humaneval-{lang}.jsonl")
 
     print("model", model_name_or_path)
-    tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
+    tokenizer = AutoTokenizer.from_pretrained(tokenizer_path)
     print("load tokenizer {} from {} over.".format(tokenizer.__class__, model_name_or_path))
     model = AutoModelForCausalLM.from_pretrained(
         model_name_or_path,
@@ -119,6 +123,7 @@ def evaluation_only(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--model', type=str, help="model name or path")
+    parser.add_argument('--tokenizer_path', type=str, help="tokenizer path")
     parser.add_argument('--output_path', type=str, help="output path of your generation")
     parser.add_argument('--language', type=str, help="langauge")
     parser.add_argument('--temp_dir', type=str, help="temp dir for evaluation", default="tmp")

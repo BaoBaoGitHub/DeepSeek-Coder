@@ -20,7 +20,7 @@ class HumanEval:
     HumanEval evaluation class.
     """
     def __init__(self, data_root, max_seq_len=2048,
-                language="python", max_gen_len=200, batch_size=512,
+                language="java", max_gen_len=200, batch_size=512,
                 log_dir=None, temperature=0, issft=False, top_p=0.95,
                 model_name="", inference_increment=True,
                 tokenizer_cfg=None, n_sample=40, k_sample=1):
